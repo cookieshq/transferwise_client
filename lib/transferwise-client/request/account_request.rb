@@ -1,19 +1,15 @@
 module TransferwiseClient
   # Quote request class
-  class AccountRequest < Hash
+  class AccountRequest < Request
     def initialize(currency, account_holder_name, type,
                    extra_params)
-      self['profile'] = PROFILE_ID
+      self['profile'] = TransferwiseClient.configuration.profile_id
       self['currency'] = currency
       self['type'] = type
       self['accountHolderName'] = account_holder_name
       self['details'] = {}
       self['details']['legalType'] = 'BUSINESS'
       extra_params.each { |k, v| self['details'][k] = v }
-    end
-
-    def path
-      'accounts'
     end
 
     def validation_params
@@ -24,6 +20,10 @@ module TransferwiseClient
         end.compact
         { path: validation['path'], params: params } unless params.empty?
       end.compact
+    end
+
+    def path
+      'accounts'
     end
   end
 end

@@ -1,8 +1,8 @@
 module TransferwiseClient
   # Quote request class
-  class QuoteRequest < Hash
+  class QuoteRequest < Request
     def initialize(source, target, target_amount)
-      self['profile'] = '3431'
+      self['profile'] = PROFILE_ID
       self['rateType'] = 'FIXED'
       self['type'] = 'BALANCE_PAYOUT'
       self['source'] = source

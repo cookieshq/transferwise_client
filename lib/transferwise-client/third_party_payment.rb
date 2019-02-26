@@ -1,10 +1,9 @@
 module TransferwiseClient
   # Create transfer
   class ThirdPartyPayment
-    def build(quote, target_account, original_transfer_id, customer_id, reference, full_name,business_reg_code, address)
+    def build(quote, target_account, original_transfer_id, originator, reference)
       @third_party_request = ThirdPartyPaymentRequest.new(
-        quote, target_account, original_transfer_id,
-        customer_id, reference, full_name,business_reg_code, address
+        quote, target_account, original_transfer_id, originator, reference
       )
     end
 

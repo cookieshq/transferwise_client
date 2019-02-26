@@ -4,20 +4,25 @@ require 'net/http'
 require 'json'
 require 'yaml'
 
-Dir[File.dirname(__FILE__) + '/transferwise-client/request/*.rb'].each do |f|
-  require f
-end
-
-Dir[File.dirname(__FILE__) + '/transferwise-client/response/*.rb'].each do |f|
-  require f
-end
-
-Dir[File.dirname(__FILE__) + '/transferwise-client/*.rb'].each do |f|
-  require f
-end
+Dir[File.dirname(__FILE__) + '/transferwise-client/*.rb'].each { |f| require f }
+Dir[File.dirname(__FILE__) + '/transferwise-client/request/*.rb'].each { |f| require f }
+Dir[File.dirname(__FILE__) + '/transferwise-client/response/*.rb'].each { |f| require f }
 
 TransferwiseClient::VALIDATIONS = YAML.load(
   IO.read(File.dirname(__FILE__) + '/../validations.yaml')
 )
 
-PROFILE_ID = '3431'
+# Transferwise module
+module TransferwiseClient
+  class << self
+    attr_writer :configuration
+  end
+
+  def self.configuration
+    @configuration ||= Configuration.new
+  end
+
+  def self.configure
+    yield(configuration)
+  end
+end

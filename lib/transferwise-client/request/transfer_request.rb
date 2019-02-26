@@ -1,6 +1,6 @@
 module TransferwiseClient
   # Quote request class
-  class TransferRequest < Hash
+  class TransferRequest < Request
     def initialize(quote, target_account, customer_transaction_id, reference)
       self['targetAccount'] = target_account
       self['quote'] = quote

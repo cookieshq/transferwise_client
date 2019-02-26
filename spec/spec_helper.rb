@@ -13,6 +13,14 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require File.dirname(__FILE__) + '/../lib/transferwise_client.rb'
+require 'byebug'
+TransferwiseClient.configure do |config|
+  config.profile_id = '3431'
+  config.auth_key = '4a569d2b-264c-46ef-8280-7d8e96ac5b10'
+  config.endpoint = 'sandbox'
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
