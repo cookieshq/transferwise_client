@@ -1,6 +1,10 @@
 module TransferwiseClient
   # send request
   class HttpRequest
+    def initialize(auth_key = nil)
+      @auth_key = auth_key
+    end
+
     def send_request(request)
       url = URI("#{endpoint}/#{request.path}")
       http_post(url, request.to_json)
@@ -48,7 +52,8 @@ module TransferwiseClient
     end
 
     def auth_key
-      TransferwiseClient.configuration.auth_key
+      @auth_key ||
+        TransferwiseClient.configuration.auth_key
     end
   end
 end

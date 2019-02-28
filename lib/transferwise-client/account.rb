@@ -7,7 +7,7 @@ module TransferwiseClient
     end
 
     def valid?
-      http_responses = HttpRequest.new.validation_request(@account_request)
+      http_responses = HttpRequest.new.validation_request(@account_request.validation_params)
       validations = http_responses.map do |http_response|
         Response.new(http_response).response
       end
