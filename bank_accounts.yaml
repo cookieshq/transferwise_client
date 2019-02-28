@@ -1,0 +1,19 @@
+GBP:
+  Account Name: TransferWise
+  UK sort code: 20-95-61
+  Account number: "53640809"
+  Bank name: Barclays
+
+AUD:
+  Account Name: TransferWise Ltd
+  Bsb Code: "182222"
+  Account number: "303393375"
+  Bank name: Macquarie Bank
+
+USD:
+  ABA RTN: "026073008"
+  Account number: "2715100100"
+  Account type: Checking
+  Country: United States
+  Bank name: Community Federal Savings Bank
+  Our address: 89-16 Jamaica Avenue, Woodhaven, New York 11421

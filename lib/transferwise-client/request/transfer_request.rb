@@ -9,6 +9,10 @@ module TransferwiseClient
       self['details']['reference'] = reference
     end
 
+    def valid?
+      true
+    end
+
     def path
       'transfers'
     end

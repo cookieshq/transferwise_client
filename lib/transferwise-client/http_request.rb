@@ -10,6 +10,16 @@ module TransferwiseClient
       http_post(url, request.to_json)
     end
 
+    def send_get_request(request)
+      url = URI("#{endpoint}/#{request.path}")
+      http_get(url)
+    end
+
+    def get_request(path)
+      url = URI("#{endpoint}/#{path}")
+      http_get(url)
+    end
+
     def validation_request(validation_params)
       validation_params.map do |params|
         url = URI("#{validation_url}/#{params[:path]}")
@@ -40,6 +50,7 @@ module TransferwiseClient
       http.use_ssl = true
       http_request = Net::HTTP::Get.new(url)
       http_request['Content-Type'] = 'application/json'
+      http_request['Authorization'] = "Bearer #{auth_key}"
       http.request(http_request)
     end
 
