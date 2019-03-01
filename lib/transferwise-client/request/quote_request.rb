@@ -4,7 +4,7 @@ module TransferwiseClient
     def initialize(profile_id, source, target, target_amount)
       self['profile'] = profile_id
       self['rateType'] = 'FIXED'
-      self['type'] = 'REGULAR'
+      self['type'] = 'BALANCE_PAYOUT'
       self['source'] = source
       self['target'] = target
       self['targetAmount'] = target_amount

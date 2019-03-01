@@ -13,10 +13,6 @@ TransferwiseClient::VALIDATIONS = YAML.load(
   IO.read(File.dirname(__FILE__) + '/../validations.yaml')
 )
 
-TransferwiseClient::BANK_DETAILS = YAML.load(
-  IO.read(File.dirname(__FILE__) + '/../bank_accounts.yaml')
-)
-
 # Transferwise module
 module TransferwiseClient
   class << self

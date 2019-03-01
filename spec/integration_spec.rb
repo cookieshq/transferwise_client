@@ -17,7 +17,6 @@ RSpec.describe 'Integration Spec' do
     it {
       quote = client.create_quote(profile.id, 'GBP', 'EUR', 600.00)
       expect(quote.id).not_to be_nil
-      expect(client.member_reference(quote.id)).to eq('P5473695')
     }
   end
 
@@ -25,16 +24,10 @@ RSpec.describe 'Integration Spec' do
     it {
       target_account = client.create_account(profile.id, 'AUD', 'Full Name', 'australian',
                                              'bsbCode' => '083451', 'accountNumber' => '89976543')
-      quote = client.create_quote(profile.id, 'GBP', 'AUD', 600.00)
+      quote = client.create_quote(profile.id, 'AUD', 'AUD', 600.00)
       transfer = client.create_transfer(quote.id, target_account.id, SecureRandom.uuid,
                                         'Reference')
       expect(transfer.id).not_to be_nil
-      payment_details = client.payment_details(quote.id)
-      expect(payment_details['Account Name']).to eq('TransferWise')
-      expect(payment_details['Account number']).to eq('53640809')
-      expect(payment_details['Bank name']).to eq('Barclays')
-      expect(payment_details['UK sort code']).to eq('20-95-61')
-      expect(payment_details['sourceAmount']).not_to be_nil
     }
   end
 end

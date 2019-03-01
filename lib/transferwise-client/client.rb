@@ -43,16 +43,10 @@ module TransferwiseClient
       Transfer.new(Response.new(transferwise_response).response.to_h)
     end
 
-    def member_reference(quote_id)
-      quote_pay_method_request = QuotePayMethodRequest.new(quote_id)
-      transferwise_response = @http_request.send_get_request(quote_pay_method_request)
-      Response.new(transferwise_response).response[0].details['payInReference'].split(' ')[1]
-    end
-
-    def payment_details(quote_id)
-      transferwise_response = @http_request.get_request("quotes/#{quote_id}")
-      quote = Quote.new(Response.new(transferwise_response).response.to_h)
-      BANK_DETAILS[quote.source].merge('sourceAmount' => quote.sourceAmount)
+    def fund(transfer_id)
+      http_response = @http_request.fund_transfer(transfer_id)
+      puts http_response.body
+      Response.new(http_response).response
     end
   end
 end

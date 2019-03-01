@@ -29,7 +29,7 @@ module TransferwiseClient
     end
 
     def fund_transfer(transfer_id)
-      url = URI("#{URL}/transfers/#{transfer_id}/payments")
+      url = URI("#{endpoint}/transfers/#{transfer_id}/payments")
       http_post(url, { type: 'BALANCE' }.to_json)
     end
 
