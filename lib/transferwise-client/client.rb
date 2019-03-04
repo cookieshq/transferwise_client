@@ -45,8 +45,26 @@ module TransferwiseClient
 
     def fund(transfer_id)
       http_response = @http_request.fund_transfer(transfer_id)
-      puts http_response.body
       Response.new(http_response).response
+    end
+
+    def get_transfer(transfer_id)
+      transferwise_response = @http_request.get_request("transfers/#{transfer_id}")
+      Transfer.new(Response.new(transferwise_response).response.to_h)
+    end
+
+    def get_quote(quote_id)
+      transferwise_response = @http_request.get_request("quotes/#{quote_id}")
+      Quote.new(Response.new(transferwise_response).response.to_h)
+    end
+
+    def get_account_balances(profile_id)
+      transferwise_response = @http_request.get_request(
+        "borderless-accounts?profileId=#{profile_id}"
+      )
+
+      Response.new(transferwise_response)
+              .response[0].balances
     end
   end
 end

@@ -10,7 +10,8 @@ module TransferwiseClient
     end
 
     def url
-      "https://api.#{@endpoint}.transferwise.tech/v1"
+      'https://api.transferwise.com/v1' if @endpoint == 'live'
+      'https://api.sandbox.transferwise.tech/v1'
     end
 
     def validation_url
