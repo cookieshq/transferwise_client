@@ -69,15 +69,21 @@ module TransferwiseClient
       Response.new(transferwise_response).response[0]
     end
 
-    def get_account_credits(borderless_account_id, currency, start_date = 4.week.ago.utc.iso8601,
-                            end_date = Time.now.utc.iso8601)
+    def get_account_statement(borderless_account_id, currency, start_date = 4.week.ago.utc.iso8601,
+                              end_date = Time.now.utc.iso8601)
       transferwise_response = @http_request.get_request(
         "borderless-accounts/#{borderless_account_id}/statement.json?currency=#{currency}&intervalStart=#{start_date}&intervalEnd=#{end_date}"
       )
 
-      Response.new(transferwise_response).response.transactions.select { |transaction|
-        transaction['type'] == 'CREDIT'
-      }
+      Response.new(transferwise_response).response.transactions
+    end
+
+    def get_account_credits(borderless_account_id, currency, start_date = 4.week.ago.utc.iso8601,
+                            end_date = Time.now.utc.iso8601)
+      get_account_statement(borderless_account_id, currency, start_date, end_date)
+        .select do |transaction|
+          transaction['type'] == 'CREDIT'
+        end
     end
   end
 end
