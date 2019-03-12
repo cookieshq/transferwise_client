@@ -1,6 +1,6 @@
 module TransferwiseClient
   # Create account
-  class Account < OpenStruct
+  class Account < Response
     def initialize(response)
       super(response)
     end

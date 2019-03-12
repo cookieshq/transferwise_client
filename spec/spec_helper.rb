@@ -13,9 +13,11 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-require File.dirname(__FILE__) + '/../lib/transferwise_client.rb'
 require 'byebug'
 require 'securerandom.rb'
+require 'faker'
+require File.dirname(__FILE__) + '/../lib/transferwise_client.rb'
+
 TransferwiseClient.configure do |config|
   config.profile_id = '3431'
   config.auth_key = '4a569d2b-264c-46ef-8280-7d8e96ac5b10'

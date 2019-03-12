@@ -8,5 +8,9 @@ module TransferwiseClient
     def validation_params
       {}
     end
+
+    def to_h
+      raise 'to_h not implemented.'
+    end
   end
 end

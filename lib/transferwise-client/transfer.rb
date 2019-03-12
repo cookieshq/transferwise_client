@@ -1,6 +1,6 @@
 module TransferwiseClient
   # Create transfer
-  class Transfer < OpenStruct
+  class Transfer < Response
     def initialize(response)
       super(response)
     end

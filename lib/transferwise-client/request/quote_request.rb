@@ -1,14 +1,12 @@
 module TransferwiseClient
   # Quote request class
   class QuoteRequest < Request
-    def initialize(profile_id, source, target, target_amount)
-      self['profile'] = profile_id
-      self['rateType'] = 'FIXED'
-      self['type'] = 'BALANCE_PAYOUT'
-      self['source'] = source
-      self['target'] = target
-      self['targetAmount'] = target_amount
-    end
+    attr_accessor :profile
+    attr_accessor :source
+    attr_accessor :target
+    attr_accessor :target_amount
+    attr_accessor :type
+    attr_accessor :rate_type
 
     def valid?
       true
@@ -16,6 +14,11 @@ module TransferwiseClient
 
     def path
       'quotes'
+    end
+
+    def to_h
+      { profile: profile, source: source, target: target,
+        targetAmount: target_amount, type: type, rateType: rate_type }
     end
   end
 end

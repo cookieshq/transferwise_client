@@ -1,13 +1,10 @@
 module TransferwiseClient
   # Quote request class
   class TransferRequest < Request
-    def initialize(quote, target_account, customer_transaction_id, reference)
-      self['targetAccount'] = target_account
-      self['quote'] = quote
-      self['customerTransactionId'] = customer_transaction_id
-      self['details'] = {}
-      self['details']['reference'] = reference
-    end
+    attr_accessor :target_account
+    attr_accessor :quote
+    attr_accessor :customer_transaction_id
+    attr_accessor :details
 
     def valid?
       true
@@ -15,6 +12,14 @@ module TransferwiseClient
 
     def path
       'transfers'
+    end
+
+    def to_h
+      {
+        targetAccount: target_account, quote: quote,
+        customerTransactionId: customer_transaction_id,
+        details: details
+      }
     end
   end
 end
