@@ -9,7 +9,7 @@ Dir[File.dirname(__FILE__) + '/transferwise-client/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/transferwise-client/request/*.rb'].each { |f| require f }
 Dir[File.dirname(__FILE__) + '/transferwise-client/response/*.rb'].each { |f| require f }
 
-TransferwiseClient::VALIDATIONS = YAML.load(
+TransferwiseClient::VALIDATIONS = YAML.safe_load(
   IO.read(File.dirname(__FILE__) + '/../validations.yaml')
 )
 

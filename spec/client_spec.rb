@@ -6,14 +6,14 @@ RSpec.describe TransferwiseClient::Client do
 
   describe '#create_account' do
     let(:account_request) { TransferwiseClient::AccountRequest.new }
-    before {
+    before do
       account_request.profile_id = profile
       account_request.currency = 'AUD'
       account_request.type = 'australian'
       account_request.account_holder_name = 'Full Name'
       account_request.details = { 'bsbCode' => '083451', 'accountNumber' => '89976543' }
       account_request.details['legalType'] = 'BUSINESS'
-    }
+    end
 
     it { expect(subject.create_account(account_request)).to eq({}) }
   end
