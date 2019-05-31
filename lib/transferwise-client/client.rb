@@ -27,9 +27,9 @@ module TransferwiseClient
       Quote.new(ResponseFactory.new(transferwise_response).response.to_h)
     end
 
-    def temporary_quote(source, target, source_amount)
+    def temporary_quote(source, target, target_amount)
       transferwise_response = @http_request.send_get_request(
-        "quotes?source=#{source}&target=#{target}&sourceAmount=#{source_amount}&rateType=FIXED"
+        "quotes?source=#{source}&target=#{target}&targetAmount=#{target_amount}&rateType=FIXED"
       )
       Quote.new(ResponseFactory.new(transferwise_response).response.to_h)
     end
