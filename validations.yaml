@@ -1,0 +1,157 @@
+iban: &iban
+  path: iban
+  queryKey:
+    - iban
+
+GBP:
+ -
+  path: sort-code
+  queryKey:
+    - sortCode
+ -
+  path: sort-code-account-number
+  queryKey:
+    - accountNumber
+ -
+  <<: *iban
+ -
+  path: bic
+  queryKey:
+    - bic
+    - iban
+
+BGN:
+  -
+    <<: *iban
+
+CHF:
+  -
+    <<: *iban
+
+DKK:
+  -
+    <<: *iban
+
+EUR:
+  -
+    <<: *iban
+
+GEL:
+  -
+    <<: *iban
+
+NOK:
+  -
+    <<: *iban
+
+PKR:
+  -
+    <<: *iban
+
+PLN:
+  -
+    <<: *iban
+  -
+    path: polish-account-number
+    queryKey:
+      - accountNumber
+
+RON:
+  -
+    <<: *iban
+
+SEK:
+  -
+    <<: *iban
+  -
+    path: bankgiro-number
+    queryKey:
+      - bankgiroNumber
+
+USD:
+  -
+    path: abartn
+    queryKey:
+      - abartn
+  -
+    path: aba-account-number
+    queryKey:
+      - accountNumber
+
+INR:
+  -
+    path: ifsc-code
+    queryKey:
+      - ifscCode
+  -
+    path: indian-account-number
+    queryKey:
+      - accountNumber
+
+AUD:
+  -
+    path: bsb-code
+    queryKey:
+      - bsbCode
+  -
+    path: australian-account-number
+    queryKey:
+      - accountNumber
+
+CAD:
+  -
+    path: canadian-institution-number
+    queryKey:
+      - institutionNumber
+  -
+    path: canadian-transit-number
+    queryKey:
+      - institutionNumber
+      - transitNumber
+  -
+    path: canadian-account-number
+    queryKey:
+      - institutionNumber
+      - transitNumber
+      - accountNumber
+
+HUF:
+  -
+    path: hungarian-account-number
+    queryKey:
+      - accountNumber
+
+UAH:
+  -
+    path: privatbank-account-number
+    queryKey:
+      - accountNumber
+  -
+    path: privatbank-phone-number
+    queryKey:
+      - phoneNumber
+
+NZD:
+  -
+    path: new-zealand-account-number
+    queryKey:
+      - accountNumber
+
+AED:
+ -
+  path: emirates-bic
+  queryKey:
+    - bic
+    - iban
+
+CNY:
+ -
+  path: chinese-card-number
+  queryKey:
+    - cardNumber
+
+THB:
+ -
+  path: thailand-account-number
+  queryKey:
+    - accountNumber
