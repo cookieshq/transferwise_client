@@ -27,6 +27,13 @@ module TransferwiseClient
       Quote.new(ResponseFactory.new(transferwise_response).response.to_h)
     end
 
+    def temporary_quote(source, target, source_amount)
+      transferwise_response = @http_request.send_get_request(
+        "quotes?source=#{source}&target=#{target}&sourceAmount=#{source_amount}&rateType=FIXED"
+      )
+      Quote.new(ResponseFactory.new(transferwise_response).response.to_h)
+    end
+
     def create_transfer(transfer_request)
       return nil unless transfer_request.valid?
 

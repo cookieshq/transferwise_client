@@ -10,7 +10,6 @@ RSpec.describe TransferwiseClient::QuoteRequest do
 
   subject { TransferwiseClient::QuoteRequest.new }
   before do
-    subject.profile_id = profile_id
     subject.source = source
     subject.target = target
     subject.target_amount = target_amount
@@ -20,7 +19,6 @@ RSpec.describe TransferwiseClient::QuoteRequest do
   describe 'implements to_h' do
     it {
       expect(subject.to_h).to include(
-        profile: profile_id,
         source: source,
         target: target,
         targetAmount: target_amount,
