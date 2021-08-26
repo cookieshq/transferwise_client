@@ -12,8 +12,16 @@ module TransferwiseClient
       "transfers/#{transfer_id}/payments"
     end
 
+    def api_version
+      "v3/profiles/#{profile_id}"
+    end
+
     def to_h
       { type: type }
+    end
+
+    def profile_id
+      TransferwiseClient.configuration.profile_id
     end
   end
 end

@@ -4,6 +4,7 @@ module TransferwiseClient
     attr_accessor :endpoint
     attr_accessor :profile_id
     attr_accessor :auth_key
+    attr_accessor :sca_private_encryption_key
 
     def initialize
       @endpoint = 'sandbox'

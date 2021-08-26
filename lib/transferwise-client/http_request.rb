@@ -6,8 +6,31 @@ module TransferwiseClient
     end
 
     def send_post_request(request)
-      url = URI("#{endpoint}/#{request.path}")
-      http_post(url, request.to_h.to_json)
+      if request.api_version.present?
+        custom_endpoint = endpoint.gsub("v1", request.api_version)
+      else
+        custom_endpoint = endpoint
+      end
+
+      url = URI("#{custom_endpoint}/#{request.path}")
+      puts "............................... #{url}"
+
+      post_response = http_post(url, request.to_h.to_json)
+
+      puts ".1.............................. #{post_response.response.header}"
+      if post_response.response.header["x-2fa-approval-result"] == 'REJECTED' && post_response.response.header["x-2fa-approval"].present?
+
+        ott = post_response.response.header["x-2fa-approval"]
+
+        puts ".2.............................. #{post_response.response}"
+        puts "..3............................. #{ott}"
+
+        return http_post(url, request.to_h.to_json, ott: ott)
+
+      end
+
+      post_response
+
     end
 
     def send_get_request(path)
@@ -25,14 +48,29 @@ module TransferwiseClient
 
     private
 
-    def http_post(url, body)
+    def http_post(url, body, ott = nil)
+
+      key = File.read(sca_private_encryption_key)
+      private_key = OpenSSL::PKey::RSA.new(key)
+      signature = Base64.strict_encode64(private_key.sign(OpenSSL::Digest::SHA256.new, ott.to_s)) if ott.present?
+
+
+      if ott.present?
+        puts "..4............... #{signature}"
+        puts "..4.1............... #{ott.to_s}"
+      end
+
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
       http_request = Net::HTTP::Post.new(url)
       http_request['Content-Type'] = 'application/json'
       http_request['Authorization'] = "Bearer #{@auth_key}"
+      http_request['x-2fa-approval'] = ott.to_s if ott.present?
+      http_request['X-Signature'] = signature if ott.present?
       http_request.body = body
+      puts ".5-h.............................. #{http_request}"
       http.request(http_request)
+
     end
 
     def http_get(url)
@@ -50,6 +88,10 @@ module TransferwiseClient
 
     def validation_url
       TransferwiseClient.configuration.validation_url
+    end
+
+    def sca_private_encryption_key
+      TransferwiseClient.configuration.sca_private_encryption_key
     end
   end
 end

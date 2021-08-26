@@ -9,6 +9,10 @@ module TransferwiseClient
       {}
     end
 
+    def api_version
+      nil
+    end
+
     def to_h
       raise 'to_h not implemented.'
     end
