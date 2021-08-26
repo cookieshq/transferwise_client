@@ -1,6 +1,3 @@
-require 'openssl'
-require "base64"
-
 module TransferwiseClient
   # send request
   class HttpRequest
@@ -15,7 +12,9 @@ module TransferwiseClient
         custom_endpoint = endpoint
       end
 
+      url = URI("#{custom_endpoint}/#{request.path}")
       post_response = http_post(url, request.to_h.to_json)
+
       if post_response.response.header["x-2fa-approval-result"] == 'REJECTED' && post_response.response.header["x-2fa-approval"].present?
 
         # take one time token from failed request.
@@ -44,8 +43,7 @@ module TransferwiseClient
 
     def http_post(url, body, ott = nil)
       if ott.present?
-        key = File.read(sca_private_encryption_key)
-        private_pem = OpenSSL::PKey::RSA.new(key)
+        private_pem = OpenSSL::PKey::RSA.new(sca_private_encryption_key)
         private_key = OpenSSL::PKey::RSA.new(private_pem.to_pem)
         signature_key = private_key.sign(OpenSSL::Digest::SHA256.new, ott.to_s)
         signature = Base64.strict_encode64(signature_key)
